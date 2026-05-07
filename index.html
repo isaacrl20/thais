@@ -7,34 +7,29 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4fa; min-height: 100vh; padding: 20px; }
-    .bi-wrap { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(26,58,107,0.10); }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4fa; min-height: 100vh; }
+    .bi-wrap { width: 100%; height: 100vh; display: flex; flex-direction: column; background: #fff; }
     .bi-header { background: #1a3a6b; color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
-    .bi-header h1 { font-size: 16px; font-weight: 500; color: #fff; }
+    .bi-header h1 { font-size: 18px; font-weight: 500; }
     .bi-badge { background: #c0392b; color: #fff; font-size: 11px; padding: 3px 10px; border-radius: 20px; }
-    .bi-toolbar { background: #f4f6fb; border-bottom: 1px solid #d0d8e8; padding: 10px 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .bi-toolbar { background: #f4f6fb; border-bottom: 1px solid #d0d8e8; padding: 10px 20px; display: flex; align-items: center; gap: 10px; }
     .bi-toolbar label { font-size: 12px; color: #555; font-weight: 500; }
-    .bi-toolbar select { font-size: 12px; padding: 4px 8px; border: 1px solid #b0bcd4; border-radius: 6px; background: #fff; color: #222; cursor: pointer; }
-    .bi-toolbar button { font-size: 12px; padding: 4px 12px; border-radius: 6px; border: 1px solid #1a3a6b; color: #1a3a6b; background: #fff; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .bi-toolbar select, .bi-toolbar button { font-size: 12px; padding: 6px 12px; border-radius: 6px; border: 1px solid #1a3a6b; background: #fff; cursor: pointer; }
     .bi-toolbar button.active, .bi-toolbar button:hover { background: #1a3a6b; color: #fff; }
-    .bi-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px 20px; }
-    .bi-card { background: #f7f9fc; border: 1px solid #d0d8e8; border-radius: 8px; padding: 10px 14px; }
-    .bi-card .label { font-size: 11px; color: #888; margin-bottom: 3px; }
+    .bi-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 12px 20px; }
+    .bi-card { background: #f7f9fc; border: 1px solid #d0d8e8; border-radius: 8px; padding: 10px; text-align: center; }
+    .bi-card .label { font-size: 12px; color: #888; margin-bottom: 4px; }
     .bi-card .value { font-size: 20px; font-weight: 600; }
     .bi-card.red .value { color: #c0392b; }
     .bi-card.blue .value { color: #1a3a6b; }
     .bi-card.green .value { color: #1e7e4a; }
     .bi-card.amber .value { color: #b06e10; }
-    .bi-chart-area { padding: 10px 20px; }
-    .bi-chart-title { font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; }
+    .bi-chart-area { flex: 1; padding: 20px; display: flex; flex-direction: column; }
+    .bi-chart-title { font-size: 14px; font-weight: 600; color: #444; margin-bottom: 8px; }
     .bi-legend { display: flex; gap: 15px; font-size: 12px; color: #666; margin-bottom: 8px; }
     .bi-legend span { display: flex; align-items: center; gap: 5px; }
-    .bi-legend .dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
-    .divider { border: none; border-top: 1px solid #e8ecf4; margin: 0 20px; }
-    @media (max-width: 600px) {
-      .bi-metrics { grid-template-columns: repeat(2, 1fr); }
-      body { padding: 8px; }
-    }
+    .bi-legend .dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    canvas { flex: 1; width: 100% !important; height: 100% !important; }
   </style>
 </head>
 <body>
@@ -56,7 +51,7 @@
     <div class="bi-metrics">
       <div class="bi-card red">
         <div class="label">Erros</div>
-        <div class="value">120</div>
+        <div class="value">100</div>
       </div>
       <div class="bi-card blue">
         <div class="label">Processos</div>
@@ -64,21 +59,20 @@
       </div>
       <div class="bi-card green">
         <div class="label">Sucesso</div>
-        <div class="value">92%</div>
+        <div class="value">90%</div>
       </div>
       <div class="bi-card amber">
         <div class="label">Tempo Médio</div>
         <div class="value">3h</div>
       </div>
     </div>
-    <hr class="divider"/>
     <div class="bi-chart-area">
       <div class="bi-chart-title">Comparativo de Performance</div>
       <div class="bi-legend">
         <span><span class="dot" style="background:#1a3a6b"></span> As Is</span>
         <span><span class="dot" style="background:#c0392b"></span> To Be</span>
       </div>
-      <canvas id="performanceChart" style="max-height:300px;"></canvas>
+      <canvas id="performanceChart"></canvas>
     </div>
   </div>
   <script>
@@ -97,4 +91,3 @@
   </script>
 </body>
 </html>
-
